@@ -63,6 +63,25 @@
                     }
                 }
             }
+
+            let v = 0;
+            let v2 = 0;
+            do{
+                v = Math.floor(Math.random()*19+1);
+            }while(t[v][1] == "wall");
+            t[v][1] = "man";
+            document.getElementById(v+"x1").src = "icons/man.png";
+            do{
+                v = Math.floor(Math.random()*19+1);
+            }while(t[v][29] == "wall");
+            t[v][30] = "door";
+            document.getElementById(v+"x30").src = "icons/door.png";
+            do{
+                v = Math.floor(Math.random()*19+1);
+                v2 = Math.floor(Math.random()*29+1);
+            }while(t[v][v2] == "wall");
+            t[v][v2] = "key";
+            document.getElementById(v+"x"+v2).src = "icons/key.png";
         }
         
         function setKep(i, j, kep){
