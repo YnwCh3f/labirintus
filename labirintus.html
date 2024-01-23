@@ -24,6 +24,10 @@
 
     <script>
         let t = [];
+        let pi = 0;
+        let pj = 0;
+        let di = 0;
+        let dj = 0;
         function start(){
             let html = "";
             for (let i = 0; i < 21; i++){ t[i] = []; for (let j = 0; j < 31; j++){
@@ -63,19 +67,22 @@
                     }
                 }
             }
-
             let v = 0;
             let v2 = 0;
             do{
                 v = Math.floor(Math.random()*19+1);
             }while(t[v][1] == "wall");
-            t[v][1] = "man";
-            document.getElementById(v+"x1").src = "icons/man.png";
+             pi = v;
+             pj = 1;
+            t[pi][pj] = "man";
+            document.getElementById(pi+"x"+pj).src = "icons/man.png";
             do{
                 v = Math.floor(Math.random()*19+1);
             }while(t[v][29] == "wall");
-            t[v][30] = "door";
-            document.getElementById(v+"x30").src = "icons/door.png";
+             di = v;
+             dj = 30;
+            t[di][dj] = "door";
+            document.getElementById(di+"x30").src = "icons/door.png";
             do{
                 v = Math.floor(Math.random()*19+1);
                 v2 = Math.floor(Math.random()*29+1);
@@ -88,9 +95,21 @@
             document.getElementById(i+"x"+j).src = "icons/" + kep + ".png";
             t[i][j] = kep;
         }
+
+        let go = ["null", "key", "exit"];
+        function mozog(){
+            let b = event.key;
+            if (b == 'w' && go.includes(t[pi-1][pj])) pi--;
+            if (b == 'a' && go.includes(t[pi][pj-1])) pj--;
+            if (b == 's' && go.includes(t[pi+1][pj])) pi++;
+            if (b == 'd' && go.includes(t[pi][pj+1])) pj++;
+            if (t[pi][pj] == "key") setKep(di, dj, "door");
+            if (t[pi][pj] == "exit") gondol();
+            setKep(pi, pj, "man");
+        }
     </script>
 </head>
-<body onload="start();">
+<body onkeypress="mozog();" onload="start();">
     <div id="container">
 
     </div>
