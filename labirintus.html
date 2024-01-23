@@ -23,15 +23,52 @@
     </style>
 
     <script>
+        let t = [];
         function start(){
             let html = "";
-            for (let i = 0; i < 21; i++){ for (let j = 0; j < 31; j++){
-                    html += "<img src='icons/wall.png'>";
+            for (let i = 0; i < 21; i++){ t[i] = []; for (let j = 0; j < 31; j++){
+                    t[i][j] = "wall";
+                    html += "<img id='"+i+"x"+j+"' src='icons/wall.png'>";
                 }
             }
             document.getElementById("container").innerHTML = html;
+            gondol();
+        }
+
+        function gondol(){
+            let i = 0; let j = 0;
+            let sor = [];
+            let osz = [];
+            for (let i = 1; i < 20; i++) for (let j = 1; j < 30; j++) setKep(i, j, "null");
+            while (sor.length + osz.length < 23){
+                if (Math.random() > 0.5 && sor.length < 9){
+                    do{
+                        i = Math.floor(Math.random()*9+1)*2;
+                    } while(sor.includes(i));
+                    sor.push(i);
+                    if (Math.random() > 0.5){
+                        for(let j = 1; j < 30; j++) if(t[i][j+1] != "wall") setKep(i, j, "wall");
+                    }else{
+                        for(let j = 30; j >= 1; j--) if(t[i][j-1] != "wall") setKep(i, j, "wall");
+                    }
+                }else if (osz.length < 14){
+                    do{
+                        j = Math.floor(Math.random()*14+1)*2;
+                    } while(osz.includes(j));
+                    osz.push(j);
+                    if (Math.random() > 0.5){
+                        for(let i = 1; i < 20; i++) if(t[i+1][j] != "wall") setKep(i, j, "wall");
+                    }else{
+                        for(let i = 20; i >= 1; i--) if(t[i-1][j] != "wall") setKep(i, j, "wall");
+                    }
+                }
+            }
         }
         
+        function setKep(i, j, kep){
+            document.getElementById(i+"x"+j).src = "icons/" + kep + ".png";
+            t[i][j] = kep;
+        }
     </script>
 </head>
 <body onload="start();">
