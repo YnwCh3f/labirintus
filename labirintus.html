@@ -2,11 +2,41 @@
 <html lang="hu">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Labirintus</title>
+    <style>
+
+        body{
+            background-color: darkslategrey;
+        }
+
+        #container{
+            margin: 0px auto;
+            background-color: white;
+            border: solid lightgrey 5px;
+            width: 992px;
+            height: 672px;
+            font-size: 0;
+            padding: 10px;
+        }
+
+    </style>
+
+    <script>
+        function start(){
+            let html = "";
+            for (let i = 0; i < 21; i++){ for (let j = 0; j < 31; j++){
+                    html += "<img src='icons/wall.png'>";
+                }
+            }
+            document.getElementById("container").innerHTML = html;
+        }
+        
+    </script>
 </head>
-<body>
-    
+<body onload="start();">
+    <div id="container">
+
+    </div>
 </body>
 </html>
